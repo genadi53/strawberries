@@ -11,6 +11,37 @@ const deepCopy = (arr) => {
     return copy;
   }
 
+
+
+const displayData = (rows, cols, array=[], day) => {
+    // const good = '⚪';
+    // const bad = '⚫';
+    const bad = '●';
+    const good = "○";
+    const rootDiv = document.getElementById("root");
+    const currentDay = document.createElement("h1");
+    currentDay.innerText = day;
+    rootDiv.appendChild(currentDay)
+
+    for(let i = 0; i < rows; i++){
+        const div = document.createElement("div");
+
+
+        for(let j = 0; j < cols; j++){
+            let node = document.createElement("span");
+            if(array[i][j] === 0){
+              node.innerText = good; 
+            } else {
+                node.innerText = bad 
+            }
+            div.appendChild(node)
+        }
+        rootDiv.appendChild(div);
+    }
+    rootDiv.appendChild(document.createElement("br"))
+
+}
+
 const directions = [
     [0,1], [0,-1], [1,0], [-1, 0]
 ]
@@ -25,16 +56,16 @@ const strawberries = (rows, cols, days, badSB = []) => {
     badSB.forEach(sb => {
         array[sb.row-1][sb.col-1] = 1;
     })
- 
+    displayData(rows, cols, array, 0)
 
      
     // console.log(array)
 
     for(let d = 1; d <= days; d++){
         
-        console.log("***********")
-        console.log('day ' + d)
-        console.log("***********")
+        // console.log("***********")
+        // console.log('day ' + d)
+        // console.log("***********")
 
         let copyArr = deepCopy(array);
         for(let i = 0; i < rows; i++){
@@ -55,9 +86,10 @@ const strawberries = (rows, cols, days, badSB = []) => {
             }
         }
         array = deepCopy(copyArr);
+        displayData(rows, cols, array, d)
+
     }
     // console.log(array)
-
     let goodSB = 0;
     let badSB2 = 0;
     for(let i = 0; i < rows; i++){
@@ -77,4 +109,6 @@ const strawberries = (rows, cols, days, badSB = []) => {
 
 }
 
+
 strawberries(8, 10, 2, [{row: 4, col:8}, {row: 2, col:7}])
+strawberries(100, 100, 20, [{row: 1, col:1}, {row: 50, col:50}])
