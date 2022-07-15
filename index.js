@@ -1,5 +1,5 @@
 
-const deepCopy = (arr) => {
+const deepCopy = (arr=[]) => {
     let copy = [];
     arr.forEach(elem => {
       if(Array.isArray(elem)){
@@ -9,7 +9,7 @@ const deepCopy = (arr) => {
       }
     })
     return copy;
-  }
+}
 
 
 
@@ -42,51 +42,45 @@ const displayData = (rows, cols, array=[], day) => {
 
 }
 
-const directions = [
-    [0,1], [0,-1], [1,0], [-1, 0]
-]
 
 const strawberries = (rows, cols, days, badSB = []) => {
-    
-    let array = [];
+    const directions = [
+        [0,1], [0,-1], [1,0], [-1, 0]
+    ]
+
+    let strawberriesArray = [];
     for(let i = 0; i < rows; i++){
-        array.push(Array.from(Array(cols), () => 0));
+        strawberriesArray.push(Array.from(Array(cols), () => 0));
     }
 
     badSB.forEach(sb => {
-        array[sb.row-1][sb.col-1] = 1;
+        strawberriesArray[sb.row-1][sb.col-1] = 1;
     })
-    displayData(rows, cols, array, 0)
+    displayData(rows, cols, strawberriesArray, 0)
 
      
     // console.log(array)
-
     for(let d = 1; d <= days; d++){
-        
-        // console.log("***********")
-        // console.log('day ' + d)
-        // console.log("***********")
 
-        let copyArr = deepCopy(array);
+        let copyArr = deepCopy(strawberriesArray);
         for(let i = 0; i < rows; i++){
             for(let j = 0; j < cols; j++){
                 
-                if(array[i][j] === 1){
+                if(strawberriesArray[i][j] === 1){
                     directions.forEach(([x,y]) => {
                         const newX = i + x;
                         const newY = j + y;
                         if(newX >= 0 && newX < rows && newY >= 0 && newY < cols){
                         copyArr[newX][newY] = 1;  
                         }
-
                     })
                 }
 
                 
             }
         }
-        array = deepCopy(copyArr);
-        displayData(rows, cols, array, d)
+        strawberriesArray = deepCopy(copyArr);
+        displayData(rows, cols, strawberriesArray, d)
 
     }
     // console.log(array)
@@ -94,11 +88,9 @@ const strawberries = (rows, cols, days, badSB = []) => {
     let badSB2 = 0;
     for(let i = 0; i < rows; i++){
         for(let j = 0; j < cols; j++){
-            if(array[i][j] === 0){
+            if(strawberriesArray[i][j] === 0){
                 goodSB+=1;
-            }
-
-            if(array[i][j] === 1){
+            } else {
                 badSB2+=1;
             }
         }
@@ -111,4 +103,4 @@ const strawberries = (rows, cols, days, badSB = []) => {
 
 
 strawberries(8, 10, 2, [{row: 4, col:8}, {row: 2, col:7}])
-strawberries(100, 100, 20, [{row: 1, col:1}, {row: 50, col:50}])
+strawberries(50, 50, 20, [{row: 1, col:1}, {row: 50, col:50}])
