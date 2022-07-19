@@ -1,8 +1,8 @@
 # Strawberries Task
-<div style="display: flex; align-items:center; justify-content:center;">
-    <img src="pic1.png" style="width: 240px; height: 180px;">    
-</div>
+<p align="center">
+    <img src="pic1.png" width="480px" height="480px">    
+</p>
 <br>
-<div style="display: flex; align-items:center; justify-content:center;">
-    <img src="pic2.png" style="width: 240px; height: 180px;">
-</div>
+<p align="center">
+    <img src="pic2.png"  width="480px" height=320px">
+</p>
